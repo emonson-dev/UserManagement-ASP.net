@@ -1,0 +1,34 @@
+﻿@model UserManagement.Models.LoginViewModel;
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Register</h1>
+<hr />
+<form asp-controller="Auth" asp-action="Register" method="post">
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Password" class="control-label"></label>
+        <input asp-for="Password" class="form-control" />
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+        <input type="submit" value="Register" class="btn btn-primary" />
+    </div>
+    <div class="form-group">
+        @if (ViewData.ModelState.Values.Any(v => !v.Errors.Any()))
+        {
+            <div class="text-danger">
+                @foreach (var error in ViewData.ModelState.Values.Where(v => v.Errors.Any()).SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+    </div>
+</form>
