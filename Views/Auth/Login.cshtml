@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+
+@model UserManagement.Models.LoginViewModel
+
+<h2>Login</h2>
+
+<form method="post" asp-action="Login">
+    <div class="form-group">
+        <label for="UserName">Username</label>
+        <input type="text" id="Username" name="UserName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" id="Password" name="Password" class="form-control" required />
+    </div>
+    <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a asp-controller="Auth" asp-action="Register" class="btn btn-danger ml-2">Register</a>
+    </div>
+
+    <div class="form-group">
+        @if (ViewData.ModelState.Values.Any(v => !v.Errors.Any()))
+        {
+            <div class="text-danger">
+                @foreach (var error in ViewData.ModelState.Values.Where(v => v.Errors.Any()).SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
+    </div>
+</form>
